@@ -1,0 +1,51 @@
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <h3 class="login-heading mb-4">Welcome back!</h3>
+              <form #f="ngForm" (ngSubmit)="loginClicked ? login(f.value, f) : register(f.value, f)">
+                <div *ngFor="let field of formFields" id="myform">
+                  <label for={{field.id}}><h5>{{field.label}}</h5></label>
+                  <input type="text" name={{field.id}} ngModel
+                         *ngIf="field.type.name == 'string' && field.id !== 'password'"
+                         style="float: right; margin-right: 5%">
+                  <input type="password" name={{field.id}} ngModel *ngIf="field.id == 'password'"
+                         style="float: right; margin-right: 5%">
+                  <input type="checkbox" name={{field.id}} ngModel *ngIf="field.type.name=='boolean'">
+                  <input type="number" name={{field.id}} ngModel *ngIf="field.type.name=='long'">
+                  <select name="field.id" *ngIf="field.type.name=='enum'">
+                    <option *ngFor="let val of enumValues" value={{val}}>
+                      {{field.type.values[val]}}
+                    </option>
+                  </select>
+                </div>
+                <button *ngIf="loginClicked" type="submit"
+                        class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Sign in
+                </button>
+                <button *ngIf="registerClicked" type="submit"
+                        class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Register
+                </button>
+              </form>
+              <button *ngIf="!registerClicked && !loginClicked"
+                      class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                      (click)="onLoginClick()">Click to login
+              </button>
+              <button *ngIf="!registerClicked && !loginClicked"
+                      class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                      (click)="onRegisterClick()">Click to create account
+              </button>
+              <button *ngIf="registerClicked || loginClicked"
+                      class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                      type="submit" (click)="onBackClick()">Back to welcome page
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

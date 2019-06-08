@@ -1,0 +1,22 @@
+<app-navbar role="{{role}}"></app-navbar>
+
+<div class="container" >
+  <div class="row">
+    <div class="col-sm-6 col-md-4 col-lg-3 mt-4" *ngFor="let journal of journals">
+      <div class="card">
+        <img class="card-img-top" src="../../../assets/journal.jpg">
+        <div class="card-block">
+          <h4 class="card-title">{{journal['name']}}</h4>
+          <div class="meta">
+            <a href="#">{{journal['issnNumber']}}</a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span><i class=""></i>Payer: {{journal['paymentMethod']}}
+            <button class="btn btn-primary" (click)="onJournalClicked(journal['name'], journal['id'])"> Upload paper</button></span>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
