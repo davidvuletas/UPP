@@ -17,5 +17,7 @@ public interface UserService {
 
     User findUserByUsername(String username);
 
+    List<User> findUsersWhichAreCorrespondingForArea(Long id);
+
 
 }

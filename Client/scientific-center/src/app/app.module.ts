@@ -13,6 +13,8 @@ import { JournalsComponent } from './components/journals/journals.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import { TasksComponent } from './components/tasks/tasks.component';
+import {NgSelectModule} from '@ng-select/ng-select';
+import { ReviewerComponent } from './components/reviewer/reviewer.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { TasksComponent } from './components/tasks/tasks.component';
     NavbarComponent,
     UploadPaperComponent,
     JournalsComponent,
-    TasksComponent
+    TasksComponent,
+    ReviewerComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,8 @@ import { TasksComponent } from './components/tasks/tasks.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

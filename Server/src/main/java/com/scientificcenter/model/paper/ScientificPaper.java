@@ -1,5 +1,6 @@
 package com.scientificcenter.model.paper;
 
+import com.scientificcenter.model.enums.Status;
 import com.scientificcenter.model.journal.ScientificAreaCodeBook;
 import com.scientificcenter.model.users.Author;
 import com.scientificcenter.model.users.CoAuthor;
@@ -47,5 +48,7 @@ public class ScientificPaper {
     @Column
     private String pathToPublishedPaper;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 }

@@ -3,6 +3,7 @@ import {UserService} from '../../services/user.service';
 import {ProcessService} from '../../services/process.service';
 import {StorageUtilService} from '../../services/storage-util.service';
 import {Router} from '@angular/router';
+import {Toast, ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-welcome',
@@ -17,10 +18,11 @@ export class WelcomeComponent implements OnInit {
   public registerClicked;
 
   constructor(private userService: UserService, private processService: ProcessService,
-              private router: Router) {
+              private router: Router, private toast: ToastrService) {
   }
 
   ngOnInit() {
+    localStorage.clear();
     this.processService.startProcess('user').subscribe(form => {
       StorageUtilService.setCurrentTask(form['taskId']);
     });
@@ -37,7 +39,11 @@ export class WelcomeComponent implements OnInit {
       this.userService.getUserRole(loggedUser).subscribe(role => {
         StorageUtilService.setUserRole(role);
         this.router.navigate(['homepage']);
+        this.toast.success('Successfully login.', 'Success');
+
       });
+    }, () => {
+      this.toast.error('Unsuccessfully login, bad credentials.', 'Unauthorized');
     });
   }
 
@@ -52,6 +58,8 @@ export class WelcomeComponent implements OnInit {
         this.onLoginClick();
         this.registerClicked = false;
       });
+    }, () => {
+      this.toast.error('Already exists user with that username', 'Conflict');
     });
     console.log('register');
   }

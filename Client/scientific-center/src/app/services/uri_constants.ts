@@ -10,5 +10,8 @@ export class URIConstants {
   static TASK_BY_USERNAME_ASSIGNEE_URL = 'api/process/get-task/';
   static JOURNALS_URL = 'api/journals';
   static JOURNAL_CHOOSE_URL = 'api/journals/choose/';
+  static JOURNALS_PAPER_FORMAT_VALIDATION = 'api/journals/paper/format-validation/';
+  static JOURNALS_PAPER_PDF_FORMAT_VALIDATION = 'api/journals/paper/pdf-format-validation/';
   static UPLOAD_PAPER_INFO_URL = 'api/journals/data/';
+  static REVIEWERS_URL = 'api/reviewers/';
 }

@@ -1,10 +1,9 @@
 package com.scientificcenter.controller;
 
-import com.scientificcenter.model.dto.entity.AuthorsAndCodeBooksDto;
-import com.scientificcenter.model.dto.entity.JournalViewDto;
-import com.scientificcenter.model.dto.entity.PaperForUploadDto;
+import com.scientificcenter.model.dto.entity.*;
 import com.scientificcenter.model.dto.process.FormSubmissionDto;
 import com.scientificcenter.model.enums.PaymentMethod;
+import com.scientificcenter.model.enums.Status;
 import com.scientificcenter.model.journal.ScientificAreaCodeBook;
 import com.scientificcenter.model.journal.ScientificJournal;
 import com.scientificcenter.model.paper.ScientificPaper;
@@ -116,13 +115,14 @@ public class JournalController {
         ScientificJournal journal = this.journalService.findJournalById(journalId);
         ScientificPaper paper = this.scientificPaperService.getPaperByName(paperName);
         paper.setPathToPDF(fileName);
+        paper.setStatus(Status.UPLOADED);
         paper = this.scientificPaperService.savePaper(paper);
         journal.getPapers().add(paper);
         this.journalService.save(journal);
         VariableValueDto variableValueDto = new VariableValueDto();
         variableValueDto.setType("String");
         variableValueDto.setValue(journal.getId().toString());
-        this.processService.putVariableForProcess("journal", processInstanceId,variableValueDto);
+        this.processService.putVariableForProcess("journal", processInstanceId, variableValueDto);
         this.processService.serializeObjectAndSetAsVariable(paper,
                 ScientificPaper.class.getTypeName(), processInstanceId, "paper");
         this.processService.submitForm(task.getId(), new ArrayList<FormSubmissionDto>());
@@ -139,8 +139,8 @@ public class JournalController {
     }
 
     @ApiOperation("Get paper for journal")
-    @GetMapping("/{journalId}/paper/{paperName}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String journalId, @PathVariable String paperName,
+    @GetMapping("/paper/{paperName}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String paperName,
                                                  HttpServletRequest request) {
         ScientificPaper paper = this.scientificPaperService.getPaperByName(paperName);
         Resource file = this.fileStorageService.loadAsResource(paper.getPathToPDF());
@@ -164,4 +164,43 @@ public class JournalController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
                 .body(file);
     }
+
+    @GetMapping("/{username}")
+    public ResponseEntity getAllPapersForEditor(@PathVariable String username) {
+        User user = this.userService.findUserByUsername(username);
+        List<ScientificPaper> papers = this.scientificPaperService.getAllPapersForEditor(user.getId());
+        return ResponseEntity.ok(papers);
+    }
+
+    @PostMapping("/paper/format-validation/{processId}")
+    public ResponseEntity doValidationForPaper(@PathVariable String processId,
+                                               @RequestBody List<FormSubmissionDto> form) {
+        ValidationDto validationDto = (ValidationDto) this.handlerFunctions.
+                mapFormValuesToObject(form, ValidationDto.class, new ValidationDto());
+        VariableValueDto variable = new VariableValueDto();
+        variable.setValue(validationDto.getValid());
+        variable.setType("String");
+        TaskDto task = this.processService.getTaskByProcessId(processId);
+        this.processService.putVariableForProcess("valid", processId, variable);
+        this.processService.submitForm(task.getId(), form);
+        return ResponseEntity.ok(processId);
+    }
+
+
+    @PostMapping("/paper/pdf-format-validation/{processId}")
+    public ResponseEntity doPDFValidationForPaper(@PathVariable String processId,
+                                               @RequestBody List<FormSubmissionDto> form) {
+        PDFValidationDto validationDto = (PDFValidationDto) this.handlerFunctions.
+                mapFormValuesToObject(form, PDFValidationDto.class, new PDFValidationDto());
+        VariableValueDto variable = new VariableValueDto();
+        variable.setValue(validationDto.getFormat());
+        variable.setType("String");
+        TaskDto task = this.processService.getTaskByProcessId(processId);
+        this.processService.putVariableForProcess("format", processId, variable);
+        this.processService.submitForm(task.getId(), form);
+        return ResponseEntity.ok(processId);
+    }
+
 }
+
+

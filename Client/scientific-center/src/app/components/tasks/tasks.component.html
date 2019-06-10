@@ -1,1 +1,31 @@
 <app-navbar role={{role}}></app-navbar>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-md-4 col-lg-3 mt-4" *ngFor="let paper of papers">
+      <div class="card">
+        <img class="card-img-top" src="../../../assets/paper.jpeg">
+        <div class="card-block">
+          <h4 class="card-title">{{paper['title']}}</h4>
+          <div class="meta">
+            <p>{{paper['abstractOfPaper']|slice:0:100}}...</p>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span><i class=""></i>{{paper['keywords']}}
+            <button style="margin-top: 5%" class="btn btn-primary" *ngIf="!validationPassed"
+                    (click)="downloadPaper(paper['title'])"> Download paper</button>
+            <button style="margin-top: 5%" class="btn btn-success" *ngIf="validationPassed"
+                    (click)="acceptPaper(paper['title'])">Format ok</button>
+          <button style="margin-top: 5%" class="btn btn-danger"
+                  (click)="rejectPaper(paper['title'])"> Reject</button></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

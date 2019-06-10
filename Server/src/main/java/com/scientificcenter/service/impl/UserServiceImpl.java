@@ -38,4 +38,9 @@ public class UserServiceImpl implements UserService {
     public User findUserByUsername(String username) {
         return this.userRepository.findUserByEmailContains(username);
     }
+
+    @Override
+    public List<User> findUsersWhichAreCorrespondingForArea(Long id) {
+        return this.userRepository.findUsersWhichAreCorrespondingForArea(id);
+    }
 }

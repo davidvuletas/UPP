@@ -110,7 +110,19 @@ public class ProcessController {
 
         }
         return formFieldsDtos;
-
     }
+
+    /*@DeleteMapping(value = "/logout/{processId}")
+    public ResponseEntity logoutProcess(@PathVariable String processId) {
+            VariableValueDto varEditor = new VariableValueDto();
+        varEditor.setType("String");
+        varEditor.setValue(null);
+        this.processService.putVariableForProcess("loggedInEditor", processId, varEditor);
+        VariableValueDto varAuthor = new VariableValueDto();
+        varAuthor.setType("String");
+        varAuthor.setValue(null);
+        this.processService.putVariableForProcess("loggedInAuthor", processId, varAuthor);
+        return ResponseEntity.ok().build();
+    }*/
 
 }

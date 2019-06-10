@@ -13,7 +13,9 @@ export class NavbarComponent implements OnInit {
   @Input()
   role: string;
   clicked: boolean;
-  constructor(private router: Router, private processService: ProcessService) { }
+
+  constructor(private router: Router, private processService: ProcessService) {
+  }
 
   ngOnInit() {
   }

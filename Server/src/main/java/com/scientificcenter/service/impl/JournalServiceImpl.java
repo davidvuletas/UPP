@@ -48,4 +48,9 @@ public class JournalServiceImpl implements JournalService {
     public ScientificJournal findJournalById(Long id) {
         return this.journalRepository.findScientificJournalById(id);
     }
+
+    @Override
+    public ScientificJournal findJournalByPaper(Long id) {
+        return this.journalRepository.findScientificJournalByPaper(id);
+    }
 }

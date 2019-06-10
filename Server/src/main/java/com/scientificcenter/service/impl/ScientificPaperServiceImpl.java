@@ -66,5 +66,10 @@ public class ScientificPaperServiceImpl implements ScientificPaperService {
     public ScientificPaper savePaper(ScientificPaper scientificPaper) {
         return this.scientificPaperRepository.save(scientificPaper);
     }
+
+    @Override
+    public List<ScientificPaper> getAllPapersForEditor(Long id) {
+        return this.scientificPaperRepository.findPapersWhichAreUploadedForEditorId(id);
+    }
 }
 
