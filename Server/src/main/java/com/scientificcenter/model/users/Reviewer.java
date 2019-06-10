@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,7 +26,7 @@ public class Reviewer {
     @Column
     private String title;
 
-    @OneToMany
+    @ManyToMany
     private List<ScientificAreaCodeBook> scientificAreas;
 
     @OneToMany
