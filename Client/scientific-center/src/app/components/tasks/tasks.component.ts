@@ -47,6 +47,11 @@ export class TasksComponent implements OnInit {
       } else if (task['taskName'] === 'Choose reviewers') {
         StorageUtilService.setProcessId(task['processInstanceId']);
         this.router.navigateByUrl('/reviewers');
+      } else if (task['taskName'] === 'Submit review of paper') {
+        StorageUtilService.setProcessId(task['processInstanceId']);
+        this.router.navigateByUrl('/review');
+      } else if (task['taskName'] === 'Editor make decision') {
+        this.router.navigateByUrl('/reviews/editor-decision');
       }
     }
   }

@@ -25,8 +25,8 @@ export class ReviewerComponent implements OnInit {
     });
   }
 
-  chooseReviewers() {
-    this.reviewerService.chooseReviewers(this.selectedReviewers).subscribe(processId => {
+  chooseReviewers(main: boolean) {
+    this.reviewerService.chooseReviewers(this.selectedReviewers, main).subscribe(processId => {
       StorageUtilService.setProcessId(processId);
       this.toast.success('Reviewers are chosen, they will receive message to do review', 'Success');
     });

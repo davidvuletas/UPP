@@ -4,6 +4,7 @@ import com.scientificcenter.model.enums.Status;
 import com.scientificcenter.model.journal.ScientificAreaCodeBook;
 import com.scientificcenter.model.users.Author;
 import com.scientificcenter.model.users.CoAuthor;
+import com.scientificcenter.model.users.Reviewer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -45,8 +46,14 @@ public class ScientificPaper {
     @Column
     private String pathToPDF;
 
+    @OneToMany
+    private List<Review> reviews;
+
+    @OneToMany
+    List<Reviewer> reviewers;
+
     @Column
-    private String pathToPublishedPaper;
+    private String doi;
 
     @Enumerated(EnumType.STRING)
     private Status status;

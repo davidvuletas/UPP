@@ -16,7 +16,7 @@ export class ReviewerService {
     return this.http.get(URIConstants.REVIEWERS_URL.concat(StorageUtilService.getProcessId()));
   }
 
-  chooseReviewers(choosenReviewers) {
-    return this.http.post(URIConstants.REVIEWERS_URL.concat(StorageUtilService.getProcessId()), choosenReviewers);
+  chooseReviewers(chosenReviewers, main) {
+    return this.http.post(URIConstants.REVIEWERS_URL.concat( main, '/', StorageUtilService.getProcessId()), chosenReviewers, {responseType: 'text'});
   }
 }

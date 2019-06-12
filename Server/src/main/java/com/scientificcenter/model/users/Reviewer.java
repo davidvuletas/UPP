@@ -15,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Data
 @Builder
-
 @Entity
 public class Reviewer {
 

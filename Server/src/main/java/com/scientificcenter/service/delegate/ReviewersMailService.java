@@ -1,6 +1,7 @@
 package com.scientificcenter.service.delegate;
 
 import com.scientificcenter.model.dto.entity.ReviewerDto;
+import com.scientificcenter.model.enums.Status;
 import com.scientificcenter.model.journal.ScientificAreaCodeBook;
 import com.scientificcenter.model.paper.ScientificPaper;
 import com.scientificcenter.model.users.Reviewer;
@@ -41,25 +42,43 @@ public class ReviewersMailService implements JavaDelegate {
                 delegateExecution.getProcessInstanceId());
         ScientificPaper paper = (ScientificPaper) this.handlerFunctions
                 .deserialize(paperDto.getValue().toString(), ScientificPaper.class);
+        paper.setStatus(Status.REVIEWING);
         List<ReviewerDto> reviewerDtos = (ArrayList<ReviewerDto>) this.handlerFunctions
                 .deserialize(reviewersVar.getValue().toString(),
                         ReviewerDto.class);
-        List<String> reviewerAssigne = new ArrayList<>();
-        for (ReviewerDto dto : reviewerDtos) {
-            Reviewer reviewer = this.reviewerService.findReviewerById(dto.getId());
-            reviewerAssigne.add(reviewer.getUser().getEmail().split("@")[0]);
+        List<String> reviewerAssignee = new ArrayList<>();
+
+        if (reviewerDtos.isEmpty()) {
+            reviewerAssignee.add(paper.getMainAuthor().getUser().getEmail().split("@")[0]);
             StringBuilder message = new StringBuilder("Dear ");
-            message.append(dto.getName());
+            message.append(paper.getMainAuthor().getUser().getName());
             message.append("\n\n");
             message.append("You are chosen to do review for paper ");
             message.append(paper.getTitle());
-            message.append(" You have 1 hour to do review!");
+
+            message.append(", because there are no available reviewers for this jorunal.\nYou have 1 hour to do review!");
             message.append("\n\n");
             message.append("Sincerely,\nScientific center");
-            emailService.sendMail(Collections.singletonList(reviewer.getUser().getEmail()),
+            emailService.sendMail(Collections.singletonList(paper.getMainAuthor().getUser().getEmail()),
                     "Review for paper", message.toString());
-        }
+            delegateExecution.setVariable("assigneeList", reviewerAssignee);
+        } else {
+            for (ReviewerDto dto : reviewerDtos) {
+                Reviewer reviewer = this.reviewerService.findReviewerById(dto.getId());
+                reviewerAssignee.add(reviewer.getUser().getEmail().split("@")[0]);
+                StringBuilder message = new StringBuilder("Dear ");
+                message.append(dto.getName());
+                message.append("\n\n");
+                message.append("You are chosen to do review for paper ");
+                message.append(paper.getTitle());
+                message.append(" You have 1 hour to do review!");
+                message.append("\n\n");
+                message.append("Sincerely,\nScientific center");
+                emailService.sendMail(Collections.singletonList(reviewer.getUser().getEmail()),
+                        "Review for paper", message.toString());
+            }
+            delegateExecution.setVariable("assigneeList", reviewerAssignee);
 
-        delegateExecution.setVariable("assigneeList", reviewerAssigne);
+        }
     }
 }

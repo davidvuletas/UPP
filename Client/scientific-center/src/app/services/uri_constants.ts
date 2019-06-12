@@ -14,4 +14,5 @@ export class URIConstants {
   static JOURNALS_PAPER_PDF_FORMAT_VALIDATION = 'api/journals/paper/pdf-format-validation/';
   static UPLOAD_PAPER_INFO_URL = 'api/journals/data/';
   static REVIEWERS_URL = 'api/reviewers/';
+  static REVIEW_URL = '/api/review/';
 }

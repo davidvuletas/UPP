@@ -111,7 +111,7 @@ values (6);
 
 #REVIEWERS
 insert into reviewer(title, user_id)
-values ('Assistant Professor',3);
+values ('Assistant Professor', 3);
 insert into reviewer(title, user_id)
 values ('Engineer', 4);
 insert into reviewer(title, user_id)
@@ -161,22 +161,22 @@ VALUES (2, 4);
 
 
 #PAPERS
-insert into scientific_paper(abstract_of_paper, keywords, path_topdf, path_to_published_paper, main_author_id,
+insert into scientific_paper(abstract_of_paper, keywords, path_topdf, main_author_id,
                              scientific_area_id, status)
 values ('Progress in Human Geography is the journal of choice for
   those wanting to know about the state of the art in all areas of human geography
    research and scholarship. It is published six times per year in paper format
    and - in Online First - continuously in electronic format.'
-            ' The six editors of PiHG are supported by an international', 'Human, Geography, Issue', '', '', 1, 5,
+            ' The six editors of PiHG are supported by an international', 'Human, Geography, Issue', '', 1, 5,
         'ACCEPTED');
 
-insert into scientific_paper(abstract_of_paper, keywords, path_topdf, path_to_published_paper, main_author_id,
+insert into scientific_paper(abstract_of_paper, keywords, path_topdf, main_author_id,
                              scientific_area_id, status)
 values ('The Russian Review is a major independent peer-reviewed multi-disciplinary academic '
             'journal devoted to the history,'
             ' literature, culture, fine arts, cinema,'
             ' society, and politics of the Russian Federation,'
-            ' former Soviet Union and former Russian Empire.', 'Russian, Review, Soviet, Union', '', '', 2, 1,
+            ' former Soviet Union and former Russian Empire.', 'Russian, Review, Soviet, Union', '', 2, 1,
         'ACCEPTED');
 
 #JOURNAL -> PAPER
@@ -214,6 +214,36 @@ VALUES (1, 2);
 insert into scientific_paper_co_authors(scientific_paper_id, co_authors_id)
 VALUES (2, 3);
 
+#REVIEW
+insert into review (comment_for_author, comment_for_editor, suggestion_for_accept, reviewer_id)
+values ('Maybe to change abstract', 'I think that this is ok for publish, with minor changes', 2, 1);
+insert into review (comment_for_author, comment_for_editor, suggestion_for_accept, reviewer_id)
+values ('This paper content is not relevant to title, this is not ok', 'I will not accept this paper due to bad format',
+        4, 2);
+insert into review (comment_for_author, comment_for_editor, suggestion_for_accept, reviewer_id)
+values ('Wooow nice paper, no comment', 'I will accept this paper immediately',
+        1, 3);
+insert into review (comment_for_author, comment_for_editor, suggestion_for_accept, reviewer_id)
+values ('Hmm check one more time title of paper, maybe to change it',
+        'I will suggest that author need to make changes in title and in content',
+        3, 4);
+insert into review (comment_for_author, comment_for_editor, suggestion_for_accept, reviewer_id)
+values ('Seems good for me, good concept',
+        'Seems good for me, good concept, good title, and shortly described',
+        1, 4);
+
+# REVIEW -> PAPER
+
+insert into scientific_paper_reviews(scientific_paper_id, reviews_id)
+VALUES (1, 1);
+insert into scientific_paper_reviews(scientific_paper_id, reviews_id)
+VALUES (1, 2);
+insert into scientific_paper_reviews(scientific_paper_id, reviews_id)
+VALUES (1, 3);
+insert into scientific_paper_reviews(scientific_paper_id, reviews_id)
+VALUES (2, 4);
+insert into scientific_paper_reviews(scientific_paper_id, reviews_id)
+VALUES (2, 5);
 
 
 

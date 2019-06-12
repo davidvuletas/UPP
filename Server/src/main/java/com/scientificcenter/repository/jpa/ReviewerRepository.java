@@ -27,4 +27,5 @@ public interface ReviewerRepository extends JpaRepository<Reviewer, Long> {
     List<Reviewer> findReviewersByAreaId(@Param("ids") List<Long> ids, @Param("areaId") Long areaId);
 
     Reviewer findReviewerById(Long id);
+    Reviewer findReviewerByUser_Id(Long id);
 }

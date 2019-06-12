@@ -15,6 +15,8 @@ import {ToastrModule} from 'ngx-toastr';
 import { TasksComponent } from './components/tasks/tasks.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import { ReviewerComponent } from './components/reviewer/reviewer.component';
+import { ReviewComponent } from './components/review/review.component';
+import { EditorDecisionComponent } from './components/editor-decision/editor-decision.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { ReviewerComponent } from './components/reviewer/reviewer.component';
     UploadPaperComponent,
     JournalsComponent,
     TasksComponent,
-    ReviewerComponent
+    ReviewerComponent,
+    ReviewComponent,
+    EditorDecisionComponent
   ],
   imports: [
     BrowserModule,

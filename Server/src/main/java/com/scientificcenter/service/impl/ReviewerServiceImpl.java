@@ -32,4 +32,9 @@ public class ReviewerServiceImpl implements ReviewerService {
     public Reviewer findReviewerById(Long id) {
         return this.reviewerRepository.findReviewerById(id);
     }
+
+    @Override
+    public Reviewer findReviewerByUserId(Long id) {
+        return this.reviewerRepository.findReviewerByUser_Id(id);
+    }
 }

@@ -11,4 +11,5 @@ import java.util.List;
 public interface ReviewerService {
     List<Reviewer> getAllReviewersForScientificAreaAndPaper(ScientificPaper paper);
     Reviewer findReviewerById(Long id);
+    Reviewer findReviewerByUserId(Long id);
 }

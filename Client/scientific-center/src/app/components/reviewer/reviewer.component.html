@@ -3,20 +3,27 @@
 
 <div class="container" style="margin-left: 20%; width: 50%; margin-top: 5%">
   <h5>Reviewers</h5>
-  <ng-select
-    [items]="reviewers"
-    [multiple]="true"
-    [closeOnSelect]="false"
-    [hideSelected]="true"
-    placeholder="Select reviewers"
-    [(ngModel)]="selectedReviewers">
-    <ng-template ng-label-tmp let-item="item" let-clear="clear">
-      <span class="ng-value-label">{{item.name }} {{ item.lastname}}</span>
-      <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-    </ng-template>
-    <ng-template ng-option-tmp let-item="item">
-      {{item.name}} {{item.lastname}}
-    </ng-template>
-  </ng-select>
-  <button (click)="chooseReviewers()">Choose reviewers</button>
+  <div *ngIf="reviewers.length > 0">
+    <ng-select
+      [items]="reviewers"
+      [multiple]="true"
+      [closeOnSelect]="false"
+      [hideSelected]="true"
+      placeholder="Select reviewers"
+      [(ngModel)]="selectedReviewers">
+      <ng-template ng-label-tmp let-item="item" let-clear="clear">
+        <span class="ng-value-label">{{item.name }} {{ item.lastname}}</span>
+        <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+      </ng-template>
+      <ng-template ng-option-tmp let-item="item">
+        {{item.name}} {{item.lastname}}
+      </ng-template>
+    </ng-select>
+    <button class="btn btn-primary" (click)="chooseReviewers(false)">Add reviewers</button>
+  </div>
+  <div *ngIf="reviewers.length == 0 ">
+    <p>There are no reviewers for this journal and that scientific area.\n Main editor of paper will be chosen to do
+      review. </p>
+    <button class="btn btn-primary" (click)="chooseReviewers(true)">Submit change</button>
+  </div>
 </div>

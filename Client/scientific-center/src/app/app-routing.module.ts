@@ -6,6 +6,8 @@ import {UploadPaperComponent} from './components/upload-paper/upload-paper.compo
 import {JournalsComponent} from './components/journals/journals.component';
 import {TasksComponent} from './components/tasks/tasks.component';
 import {ReviewerComponent} from './components/reviewer/reviewer.component';
+import {ReviewComponent} from './components/review/review.component';
+import {EditorDecisionComponent} from './components/editor-decision/editor-decision.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/welcome', pathMatch: 'full'},
@@ -14,7 +16,9 @@ const routes: Routes = [
   {path: 'journals', component: JournalsComponent},
   {path: 'journals/:id/upload-paper', component: UploadPaperComponent},
   {path: 'tasks', component: TasksComponent},
-  {path: 'reviewers', component: ReviewerComponent}
+  {path: 'reviewers', component: ReviewerComponent},
+  {path: 'review', component: ReviewComponent},
+  {path: 'reviews/editor-decision', component: EditorDecisionComponent}
 ];
 
 

@@ -27,10 +27,7 @@ export class NavbarComponent implements OnInit {
 
   uploadPaper() {
     this.clicked = true;
-    this.processService.startProcess('main').subscribe(form => {
-      StorageUtilService.setCurrentTask(form['taskId']);
-      this.router.navigate(['journals']);
-    });
+    this.router.navigate(['journals']);
   }
 
   getAllTasks() {
