@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {StorageUtilService} from '../../services/storage-util.service';
 import {ReviewService} from '../../services/review.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-editor-decision',
@@ -12,7 +13,7 @@ export class EditorDecisionComponent implements OnInit {
   role;
   reviews = [];
   paperTitle;
-  constructor(private reviewService: ReviewService) { }
+  constructor(private reviewService: ReviewService, private toastService: ToastrService) { }
 
   ngOnInit() {
     this.role = StorageUtilService.getUserRole();
@@ -23,5 +24,11 @@ export class EditorDecisionComponent implements OnInit {
   }
 
 
-
+  decideForPaper(status: string) {
+    const body = {changes: status};
+    this.reviewService.sendDecision(body).subscribe(processId => {
+      StorageUtilService.setProcessId(processId);
+      this.toastService.success('Your decision is submitted', 'Success');
+    });
+  }
 }

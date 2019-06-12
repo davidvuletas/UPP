@@ -1,0 +1,32 @@
+<app-navbar role="{{role}}"></app-navbar>
+
+<div style="margin-left: 30%;margin-top: 3%">
+  <h2>Reviews for paper: <i>{{paperTitle}}</i></h2>
+  <div *ngFor="let review of reviews; let i=index">
+    <div class="card mb-3" style="max-width: 540px">
+      <div class="row no-gutters">
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">Review {{i}}</h5>
+            <p class="card-text"><i>Comment</i>: {{review['commentForAuthor']}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form class="well form-horizontal"(ngSubmit)="changePaper()">
+    <fieldset>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Upload changes</label>
+        <div class=" inputGroupContainer" style="width: 54%">
+          <div class="input-group"><span class="input-group-addon"><i
+            class="glyphicon glyphicon-home"></i></span><input (change)="onChange($event)" accept=".pdf"
+                                                               type="file" id="paper" name="paper"
+                                                               placeholder="File" class="form-control"
+                                                               required="true"></div>
+        </div>
+      </div>
+    </fieldset>
+    <input type="submit" value="Send changes" class="btn btn-info">
+  </form>
+</div>

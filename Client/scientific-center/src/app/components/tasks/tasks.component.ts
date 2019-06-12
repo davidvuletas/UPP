@@ -22,6 +22,7 @@ export class TasksComponent implements OnInit {
 
   role;
   papers: [];
+  rejectionMessage: any;
 
   ngOnInit() {
     this.role = StorageUtilService.getUserRole();
@@ -51,7 +52,17 @@ export class TasksComponent implements OnInit {
         StorageUtilService.setProcessId(task['processInstanceId']);
         this.router.navigateByUrl('/review');
       } else if (task['taskName'] === 'Editor make decision') {
+        StorageUtilService.setProcessId(task['processInstanceId']);
         this.router.navigateByUrl('/reviews/editor-decision');
+      } else if (task['taskName'] === 'Submit changes and answer on questions') {
+        StorageUtilService.setProcessId(task['processInstanceId']);
+        this.router.navigateByUrl('/review/changes');
+      } else if (task['taskName'] === 'Submit changes for existing paper') {
+        StorageUtilService.setProcessId(task['processInstanceId']);
+        this.router.navigateByUrl('/changes');
+      } else if (task['taskName'] === 'Payment') {
+        StorageUtilService.setProcessId(task['processInstanceId']);
+        this.router.navigateByUrl('/payment');
       }
     }
   }
@@ -70,7 +81,7 @@ export class TasksComponent implements OnInit {
   }
 
   acceptPaper(name: any) {
-    this.journalService.pdfFormatValidation(name, 'true').subscribe(processId => {
+    this.journalService.pdfFormatValidation(name, 'true', '').subscribe(processId => {
       StorageUtilService.setProcessId(processId);
       this.toast.success('You have been successfully accept paper', 'Accept');
       this.router.navigateByUrl('/tasks');
@@ -85,7 +96,7 @@ export class TasksComponent implements OnInit {
         window.location.reload();
       });
     } else {
-      this.journalService.pdfFormatValidation(name, 'false').subscribe(processId => {
+      this.journalService.pdfFormatValidation(name, 'false', this.rejectionMessage).subscribe(processId => {
         StorageUtilService.setProcessId(processId);
         this.toast.success('You have been successfully reject paper,' +
           '\n author will be notified for changes that need to do', 'Reject');

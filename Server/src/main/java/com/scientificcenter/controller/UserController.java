@@ -1,5 +1,6 @@
 package com.scientificcenter.controller;
 
+import com.scientificcenter.exceptions.NotFoundException;
 import com.scientificcenter.model.dto.entity.LoginDto;
 import com.scientificcenter.model.dto.process.FormSubmissionDto;
 import com.scientificcenter.model.dto.process.IdentityResponseDto;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -73,5 +75,15 @@ public class UserController {
     public ResponseEntity getRole(@PathVariable String username) {
         User user = this.userRepository.findUserByEmailContains(username);
         return ResponseEntity.ok(user.getRoles().get(0));
+    }
+
+    @GetMapping("/payment/{value}/{processId}")
+    public ResponseEntity checkPayment(@PathVariable String value, @PathVariable String processId) {
+        if(value.equals("false")) {
+            throw new NotFoundException("Not found available amount on account");
+        }
+        TaskDto task = this.processService.getTaskByProcessId(processId);
+        this.processService.submitForm(task.getId(), new ArrayList<>());
+        return ResponseEntity.ok(task.getProcessInstanceId());
     }
 }

@@ -58,4 +58,7 @@ public class ScientificPaper {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Column
+    private String pdfComment;
+
 }

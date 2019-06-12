@@ -31,6 +31,8 @@ public interface ProcessService {
 
     TaskDto getCurrentTask();
 
+    List<TaskDto> getTasksByProcessId(String processId);
+
     FormFieldsDto getFormDataForTask(String processId, String taskId);
 
     void submitForm(String taskId, List<FormSubmissionDto> form);

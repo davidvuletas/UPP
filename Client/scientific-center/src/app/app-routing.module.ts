@@ -8,6 +8,9 @@ import {TasksComponent} from './components/tasks/tasks.component';
 import {ReviewerComponent} from './components/reviewer/reviewer.component';
 import {ReviewComponent} from './components/review/review.component';
 import {EditorDecisionComponent} from './components/editor-decision/editor-decision.component';
+import {ChangesReviewComponent} from './components/changes-review/changes-review.component';
+import {ChangesComponent} from './components/changes/changes.component';
+import {PaymentComponent} from './components/payment/payment.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/welcome', pathMatch: 'full'},
@@ -18,7 +21,11 @@ const routes: Routes = [
   {path: 'tasks', component: TasksComponent},
   {path: 'reviewers', component: ReviewerComponent},
   {path: 'review', component: ReviewComponent},
-  {path: 'reviews/editor-decision', component: EditorDecisionComponent}
+  {path: 'reviews/editor-decision', component: EditorDecisionComponent},
+  {path: 'review/changes', component: ChangesReviewComponent},
+  {path: 'changes', component: ChangesComponent},
+  {path: ':id/payment', component: PaymentComponent}
+
 ];
 
 

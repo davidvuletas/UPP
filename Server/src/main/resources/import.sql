@@ -146,9 +146,9 @@ values (4, 6);
 
 #JOURNALS
 insert into scientific_journal(issn_number, name, payment_method, board_id)
-values ('1234-432X', 'The Russian Review', 'OPEN_ACCESS', 1);
+values ('1234-432X', 'The Russian Review', 'READER', 1);
 insert into scientific_journal(issn_number, name, payment_method, board_id)
-values ('5678-6578', 'Progress in Human Geography', 'READER', null);
+values ('5678-6578', 'Progress in Human Geography', 'OPEN_ACCESS', null);
 
 insert into scientific_journal_reviewers(scientific_journal_id, reviewers_id)
 VALUES (1, 1);
@@ -161,18 +161,18 @@ VALUES (2, 4);
 
 
 #PAPERS
-insert into scientific_paper(abstract_of_paper, keywords, path_topdf, main_author_id,
+insert into scientific_paper(title, abstract_of_paper, keywords, path_topdf, main_author_id,
                              scientific_area_id, status)
-values ('Progress in Human Geography is the journal of choice for
+values ('Human geography', 'Progress in Human Geography is the journal of choice for
   those wanting to know about the state of the art in all areas of human geography
    research and scholarship. It is published six times per year in paper format
    and - in Online First - continuously in electronic format.'
             ' The six editors of PiHG are supported by an international', 'Human, Geography, Issue', '', 1, 5,
         'ACCEPTED');
 
-insert into scientific_paper(abstract_of_paper, keywords, path_topdf, main_author_id,
+insert into scientific_paper(title, abstract_of_paper, keywords, path_topdf, main_author_id,
                              scientific_area_id, status)
-values ('The Russian Review is a major independent peer-reviewed multi-disciplinary academic '
+values ('Russian title', 'The Russian Review is a major independent peer-reviewed multi-disciplinary academic '
             'journal devoted to the history,'
             ' literature, culture, fine arts, cinema,'
             ' society, and politics of the Russian Federation,'

@@ -114,11 +114,17 @@ public class JournalController {
         String fileName = fileStorageService.store(file);
         ScientificJournal journal = this.journalService.findJournalById(journalId);
         ScientificPaper paper = this.scientificPaperService.getPaperByName(paperName);
+        boolean firstTime = false;
+        if (paper.getPathToPDF() == null) {
+            firstTime = true;
+        }
         paper.setPathToPDF(fileName);
         paper.setStatus(Status.UPLOADED);
         paper = this.scientificPaperService.savePaper(paper);
         journal.getPapers().add(paper);
-        this.journalService.save(journal);
+        if(firstTime) {
+            this.journalService.save(journal);
+        }
         VariableValueDto variableValueDto = new VariableValueDto();
         variableValueDto.setType("String");
         variableValueDto.setValue(journal.getId().toString());
@@ -136,6 +142,20 @@ public class JournalController {
         ScientificPaper paper = scientificPaperService.uploadPaperDtoToEntity(scientificPaperDto);
         scientificPaperService.savePaper(paper);
         return ResponseEntity.ok(scientificPaperDto.getTitle());
+    }
+
+    @GetMapping(value = "/journal/paper/{paperName}")
+    public ResponseEntity getJournalByPaper(@PathVariable String paperName) {
+        ScientificPaper paper = this.scientificPaperService.getPaperByName(paperName);
+        ScientificJournal journal = this.journalService.findJournalByPaper(paper.getId());
+        return ResponseEntity.ok(journal);
+    }
+    @GetMapping("/paper/{processId}/object")
+    public ResponseEntity getPaper(@PathVariable String processId) {
+        VariableValueDto paperVar = this.processService.getVariableForProcess("paper", processId);
+        ScientificPaper paper = (ScientificPaper) this.handlerFunctions.deserialize(paperVar.getValue().toString(), ScientificPaper.class);
+        paper = this.scientificPaperService.getPaperById(paper.getId());
+        return ResponseEntity.ok(paper);
     }
 
     @ApiOperation("Get paper for journal")
@@ -192,6 +212,11 @@ public class JournalController {
                                                @RequestBody List<FormSubmissionDto> form) {
         PDFValidationDto validationDto = (PDFValidationDto) this.handlerFunctions.
                 mapFormValuesToObject(form, PDFValidationDto.class, new PDFValidationDto());
+        VariableValueDto paperVar = this.processService.getVariableForProcess("paper", processId);
+        ScientificPaper paper = (ScientificPaper) this.handlerFunctions.deserialize(paperVar.getValue().toString(), ScientificPaper.class);
+        paper = this.scientificPaperService.getPaperById(paper.getId());
+        paper.setPdfComment(validationDto.getComment());
+        this.scientificPaperService.savePaper(paper);
         VariableValueDto variable = new VariableValueDto();
         variable.setValue(validationDto.getFormat());
         variable.setType("String");

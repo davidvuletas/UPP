@@ -31,7 +31,11 @@ export class JournalsComponent implements OnInit {
       this.journalService.chooseJournal(name, id, form['processInstanceId']).subscribe(() => {
         this.processService.getTaskByProcessId(form['processInstanceId']).subscribe(task => {
           StorageUtilService.setCurrentTask(task['id']);
-          this.router.navigateByUrl('journals/'.concat(id, '/upload-paper'));
+          if (task['formFields'].length === 0) {
+            this.router.navigateByUrl('/'.concat(id, '/payment'));
+          } else {
+            this.router.navigateByUrl('journals/'.concat(id, '/upload-paper'));
+          }
         });
       });
     });

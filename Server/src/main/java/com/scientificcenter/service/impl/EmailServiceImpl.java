@@ -26,6 +26,7 @@ public class EmailServiceImpl implements EmailService {
         for(String rec: to) {
             msg.setTo(rec);
         }
+        System.out.println("To: ".concat(to.get(0)));
         javaMailSender.send(msg);
     }
 }

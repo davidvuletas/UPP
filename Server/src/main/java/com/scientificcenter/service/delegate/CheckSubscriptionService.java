@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Random;
+
 @Service("checkSubscriptionService")
 public class CheckSubscriptionService implements JavaDelegate {
 
@@ -33,7 +35,8 @@ public class CheckSubscriptionService implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        if(true) {
+        Random r = new Random();
+        if(r.nextInt() %2  == 0) {
             delegateExecution.setVariable("active", true);
         }else {
             delegateExecution.setVariable("active", false);

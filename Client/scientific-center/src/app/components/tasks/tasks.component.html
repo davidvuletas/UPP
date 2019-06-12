@@ -15,6 +15,7 @@
           <span><i class=""></i>{{paper['keywords']}}
             <button style="margin-top: 5%" class="btn btn-primary" *ngIf="!validationPassed"
                     (click)="downloadPaper(paper['title'])"> Download paper</button>
+            <input type="text" placeholder="Rejection comment" [(ngModel)]="rejectionMessage" *ngIf="validationPassed">
             <button style="margin-top: 5%" class="btn btn-success" *ngIf="validationPassed"
                     (click)="acceptPaper(paper['title'])">Format ok</button>
           <button style="margin-top: 5%" class="btn btn-danger"

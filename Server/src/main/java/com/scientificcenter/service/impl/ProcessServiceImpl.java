@@ -62,6 +62,13 @@ public class ProcessServiceImpl implements ProcessService {
     }
 
     @Override
+    public List<TaskDto> getTasksByProcessId(String processId) {
+        ResponseEntity<TaskDto[]> tasksResponse = restTemplate.getForEntity(CamundaConstants.URL_FOR_GET_PROCESS_BY_ID.concat(processId),
+                TaskDto[].class);
+        return Arrays.asList(tasksResponse.getBody());
+    }
+
+    @Override
     public FormFieldsDto getFormDataForTask(String processId, String taskId) {
         TaskFormData tfd = formService.getTaskFormData(taskId);
         List<FormField> properties = tfd.getFormFields();

@@ -1,0 +1,31 @@
+<app-navbar role="{{role}}"></app-navbar>
+<div style="margin-left: 30%;margin-top: 3%">
+  <h2>Update PDF document for paper <i>{{paperTitle}}</i></h2>
+  <div>
+    <div class="card mb-3" style="max-width: 540px">
+      <div class="row no-gutters">
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">Comment from editor for PDF</h5>
+            <p class="card-text">{{pdfComment}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form class="well form-horizontal"(ngSubmit)="changePaper()">
+    <fieldset>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Upload changes</label>
+        <div class=" inputGroupContainer" style="width: 54%">
+          <div class="input-group"><span class="input-group-addon"><i
+            class="glyphicon glyphicon-home"></i></span><input (change)="onChange($event)" accept=".pdf"
+                                                               type="file" id="paper" name="paper"
+                                                               placeholder="File" class="form-control"
+                                                               required="true"></div>
+        </div>
+      </div>
+    </fieldset>
+    <input type="submit" value="Send changes" class="btn btn-info">
+  </form>
+</div>

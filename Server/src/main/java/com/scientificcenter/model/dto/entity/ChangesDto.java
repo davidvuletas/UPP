@@ -1,16 +1,16 @@
 package com.scientificcenter.model.dto.entity;
 
+import com.scientificcenter.model.enums.Suggestion;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-@Data
 @Builder
+@Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class PDFValidationDto {
+public class ChangesDto {
 
-    public String format;
-    public String comment;
+    private Suggestion changes;
 }

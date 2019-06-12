@@ -1,18 +1,32 @@
 <app-navbar role="{{role}}"></app-navbar>
-
-<div *ngFor="let review of reviews">
-  <div class="card mb-3" style="max-width: 540px;">
-    <div class="row no-gutters">
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-            content. This content is a little bit longer.</p>
-          <p class="card-text">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </p>
+<div style="margin-left: 30%;margin-top: 3%">
+  <h2>Reviews for paper: <i>{{paperTitle}}</i></h2>
+  <div *ngFor="let review of reviews">
+    <div class="card mb-3" style="max-width: 540px">
+      <div class="row no-gutters">
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{review['username']}}</h5>
+            <p class="card-text"><i>Comment for editor</i>: {{review['commentForEditor']}}</p>
+            <p class="card-text"><i>Comment for author</i>: {{review['commentForAuthor']}}</p>
+            <span class="badge badge-danger" *ngIf="review['suggestionForAccepting']=='REJECT'">Reject</span>
+            <span class="badge badge-success" *ngIf="review['suggestionForAccepting']=='ACCEPT'">Accept</span>
+            <span class="badge badge-primary"
+                  *ngIf="review['suggestionForAccepting']=='ACCEPT_WITH_MINOR_CHANGES'">Accept with minor changes</span>
+            <span class="badge badge-primary"
+                  *ngIf="review['suggestionForAccepting']=='ACCEPT_WITH_BIG_CHANGES'">Accept with big changes</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <div style="margin-left: 5%">
+    <button class="btn btn-primary" (click)="decideForPaper('ACCEPT_WITH_MINOR_CHANGES')">Accept with minor changes</button>
+    <button class="btn btn-success" style="margin-left: 5%" (click)="decideForPaper('ACCEPT')">Accept</button>
+  </div>
+  <div style="margin-top: 3%; margin-left: 5%">
+    <button class="btn btn-warning" (click)="decideForPaper('ACCEPT_WITH_BIG_CHANGES')">Accept with big changes</button>
+    <button class="btn btn-danger" style="margin-left: 7%" (click)="decideForPaper('REJECT')">Reject</button>
+  </div>
+  <div style="padding-top: 10%"></div>
 </div>

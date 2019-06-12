@@ -18,4 +18,9 @@ export class ReviewService {
   getAllReviewsForPaper() {
     return this.http.get(URIConstants.REVIEW_URL.concat('all/').concat(StorageUtilService.getProcessId()));
   }
+
+  sendDecision(decision) {
+    return this.http.post(URIConstants.REVIEW_URL.concat('/decision/', StorageUtilService.getProcessId()), decision,
+      {responseType: 'text'});
+  }
 }

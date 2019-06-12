@@ -58,14 +58,29 @@ export class JournalService {
       .concat(StorageUtilService.getProcessId()), paper, {responseType: 'text'});
   }
 
+  getPaper() {
+    return this.http.get(URIConstants.JOURNALS_URL.concat('/paper/', StorageUtilService.getProcessId(), '/object'));
+  }
+
   downloadPaper(paperName) {
     return this.http.get(URIConstants.JOURNALS_URL.concat('/paper/', paperName), {responseType: 'blob'});
   }
 
-  pdfFormatValidation(paperName, valid) {
+  getJournalByPaperId(id) {
+    return this.http.get(URIConstants.JOURNALS_URL.concat('/journal/paper/', id));
+  }
+
+  simulateTransaction(state) {
+    return this.http.get(URIConstants.USER_URL.concat('payment/', state, '/', StorageUtilService.getProcessId()), {responseType: 'text'});
+  }
+
+  pdfFormatValidation(paperName, valid, comment) {
     const formatValid = [{
       fieldId: 'format',
       fieldValue: valid
+    }, {
+      fieldId: 'comment',
+      fieldValue: comment
     }];
     return this.http.post(URIConstants.JOURNALS_PAPER_PDF_FORMAT_VALIDATION.concat(StorageUtilService.getProcessId())
       , formatValid, {responseType: 'text'});

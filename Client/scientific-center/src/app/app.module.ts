@@ -17,6 +17,9 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import { ReviewerComponent } from './components/reviewer/reviewer.component';
 import { ReviewComponent } from './components/review/review.component';
 import { EditorDecisionComponent } from './components/editor-decision/editor-decision.component';
+import { ChangesReviewComponent } from './components/changes-review/changes-review.component';
+import { ChangesComponent } from './components/changes/changes.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { EditorDecisionComponent } from './components/editor-decision/editor-dec
     TasksComponent,
     ReviewerComponent,
     ReviewComponent,
-    EditorDecisionComponent
+    EditorDecisionComponent,
+    ChangesReviewComponent,
+    ChangesComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
